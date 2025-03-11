@@ -1,0 +1,73 @@
+@startuml
+
+
+class Patient {
+    - name : String
+    - Lastname : String
+    - sex : String
+    - CI : String
+    - birthDate : String
+    - weight : double
+    - height : double
+    - address : String
+
+    + getName() : String
+    + getLastname() : String
+    + getSex() : String
+    + getCI() : String
+    + getBirthDate() : String
+    + getWeight() : double
+    + getHeight() : double
+    + getAddress() : String
+    + updateData(name : String, lastname : String,  sex : String,birthDate : String, weight : double, height : double, address : String) : void
+    + addImage(image : Image) : void
+    + deleteImage(image : Image) : void
+    + addDisease(disease : Disease) : void
+    + deleteDisease(disease : Disease) : void
+}
+
+class Image {
+    - fileName : String
+    - date : String
+    - type : String
+    - comments : String
+    + getFileName() : String
+    + getDate() : String
+    + getType() : String
+    + getComments() : String
+}
+
+class Disease {
+    - name : String
+    - date : String
+    - treatment : String
+    + getName() : String
+    + getDate() : String
+    + getTreatment() : String
+}
+
+class MedicalRecord {
+    - patientList : List<Patient>
+    - imageList : List<Image>
+    - diseaseList : List<Disease>
+    + searchPatientByCI(CI : String) : void
+    + getPatientsWithGreatestHeight() : void
+    + getFemalePatientsWithDengueCount() : void
+    + getPatientsOrderedByName() : void
+    + getPatientsOrderedByWeight() : void
+    + addPatient(patient : Patient) : void
+    + deletePatient(patient : Patient) : void
+    + updatePatient(patient : Patient) : void
+    + addImage(image : Image) : void
+    + deleteImage(image : Image) : void
+    + updateImage(image : Image) : void
+    + addDisease(disease : Disease) : void
+    + deleteDisease(disease : Disease) : void
+    + updateDisease(disease : Disease) : void
+}
+
+Patient "1" -- "0..*" Image : has
+Patient "1" -- "0..*" Disease : has
+MedicalRecord "1" -- "0..*" Patient : contains
+
+@enduml
