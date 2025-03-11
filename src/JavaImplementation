@@ -1,0 +1,235 @@
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class NewClass{
+    public static void main(String[] args) {
+        
+    
+
+class Patient {
+    private String CI;
+    private String name;
+    private String Lastname;
+    private String birthDate;
+    private String sex;
+    private double weight;
+    private double height;
+    private String address;
+    private List<Image> images;
+    private List<Disease> diseases;
+
+    public Patient(String CI, String name, String Lastname, String birthDate, String sex, double weight, double height, String address) {
+        this.CI = CI;
+        this.name = name;
+        this.Lastname = Lastname;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.weight = weight;
+        this.height = height;
+        this.address = address;
+        this.images = new ArrayList<>();
+        this.diseases = new ArrayList<>();
+    }
+
+    // Getters and setters
+    public String getCI() {
+        return CI;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastname() {
+        return Lastname;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void updateData(String name, String lastname, String birthDate, String sex, double weight, double height, String address) {
+        this.name = name;
+        this.Lastname = lastname;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.weight = weight;
+        this.height = height;
+        this.address = address;
+    }
+
+    public void addImage(Image image) {
+        images.add(image);
+    }
+
+    public void deleteImage(Image image) {
+        images.remove(image);
+    }
+
+    public void addDisease(Disease disease) {
+        diseases.add(disease);
+    }
+
+    public void deleteDisease(Disease disease) {
+        diseases.remove(disease);
+    }
+}
+
+class Image {
+    private String fileName;
+    private String date;
+    private String type;
+    private String comments;
+
+    public Image(String fileName, String date, String type, String comments) {
+        this.fileName = fileName;
+        this.date = date;
+        this.type = type;
+        this.comments = comments;
+    }
+
+    
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+}
+
+class Disease {
+    private String name;
+    private String date;
+    private String treatment;
+
+    public Disease(String name, String date, String treatment) {
+        this.name = name;
+        this.date = date;
+        this.treatment = treatment;
+    }
+
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+}
+
+class MedicalRecord {
+    private List<Patient> patientList = new ArrayList<>();
+
+    public void searchPatientByCI(String CI) {
+        for (Patient patient : patientList) {
+            if (patient.getCI().equals(CI)) {
+                
+                System.out.println("Name: " + patient.getName());
+                System.out.println("Sex: " + patient.getSex());
+                System.out.println("Weight: " + patient.getWeight());
+                System.out.println("Height: " + patient.getHeight());
+                System.out.println("Number of images: " + patient.images.size());
+                System.out.println("Number of diseases: " + patient.diseases.size());
+            }
+        }
+    }
+
+    public void getPatientsWithGreatestHeight() {
+        double greatestHeight = 0;
+        for (Patient patient : patientList) {
+            if (patient.getHeight() > greatestHeight) {
+                greatestHeight = patient.getHeight();
+            }
+        }
+        for (Patient patient : patientList) {
+            if (patient.getHeight() == greatestHeight) {
+                System.out.println("CI: " + patient.getCI());
+            }
+        }
+    }
+
+    public void getFemalePatientsWithDengueCount() {
+        int count = 0;
+        for (Patient patient : patientList) {
+            if (patient.getSex().equals("F")) {
+                count = patient.diseases.stream().filter((disease) -> (disease.getName().equals("Dengue"))).map((_item) -> 1).reduce(count, Integer::sum);
+            }
+        }
+        System.out.println("Number of female patients with dengue: " + count);
+    }
+
+    public void getPatientsOrderedByName() {
+        patientList.sort(Comparator.comparing(Patient::getName));
+        for (Patient patient : patientList) {
+            System.out.println("CI: " + patient.getCI() + ", Name: " + patient.getName() + ", Weight: " + patient.getWeight() + ", Height: " + patient.getHeight());
+        }
+    }
+
+    public void getPatientsOrderedByWeight() {
+        patientList.sort(Comparator.comparing(Patient::getWeight).reversed());
+        for (Patient patient : patientList) {
+            System.out.println("CI: " + patient.getCI() + ", Name: " + patient.getName() + ", Weight: " + patient.getWeight() + ", Height: " + patient.getHeight());
+        }
+    }
+
+    public void addPatient(Patient patient) {
+        patientList.add(patient);
+    }
+
+    public void deletePatient(Patient patient) {
+        patientList.remove(patient);
+    }
+
+    public void updatePatient(Patient patient) {
+        for (Patient p : patientList) {
+            if (p.getCI().equals(patient.getCI())) {
+                p.updateData(patient.getName(), patient.getLastname(), patient.getBirthDate(), patient.getSex(), patient.getWeight(), patient.getHeight(), patient.getAddress());
+            }
+        }
+    }
+}
+}
+
+    private static class Disease {
+
+        public Disease() {
+        }
+
+        private Object getName() {
+            return null;
+            
+        }
+    }
+    }
